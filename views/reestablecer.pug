@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        include partials/header
+    body.login
+        .contenedor-formulario
+            h1= nombrePagina
+            p Agrega tu email para reestablecer tu contraseña
+            if locals.mensajes
+                .alertas
+                    each categoria in Object.keys(locals.mensajes)
+                        each error in mensajes[categoria]
+                            .alerta(class=`${categoria}`)
+                                p= (error === 'usuarios.usuarios_email_unique must be unique') ? 'USUARIO YA REGISTRADO' : error
+
+
+            form.caja-login(method="POST" action="/reestablecer")
+                .campo
+                    label(for="email") E-mail:
+                    input(type="email" name="email" placeholder="Tu Email")
+                .campo.enviar
+                    input.boton(type="submit" value="Restablecer Password")
+                .campo.acciones
+                    u
+                        a(href="/iniciar-sesion") ¿Volver a Login?
+
+
